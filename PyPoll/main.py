@@ -7,6 +7,11 @@ import csv
 
 csv_poll = os.path.join('Resources', 'election_data.csv')
 
+Candidates = []
+candidate_options = []
+candidate_votes = []
+total_votes = 0
+# create a list of a candidate
 
 with open(csv_poll, newline='') as csvfile:
 
@@ -19,14 +24,27 @@ with open(csv_poll, newline='') as csvfile:
     csv_header = next(csvreader)
     # print(f"CSV Header: {csv_header}")
 
-    # Read each row of data after the header
+# search of unique for Candidates.append("") to candidates
+# count total votes
+# Read each row of data after the header
     for row in csvreader:
         #print(row)
+        total_votes = total_votes + 1
+        total_candidates = row["Candidate"]
 
-# create a dictionary of a candidate
-# add dictionary to an array
-# run loop through array for each candidate get count.
-# count total votes
+        if row["Candidate"] not in candidate_options:
+
+            candidate_options.append(row["Candidate"])
+
+            candidate_votes[row["Candidate"]] = 1
+
+        else:
+            candidate_votes[row["Candidate"]] = candidate_votes[row["Candidate"]] + 1
+
+print(candidate_options)
+print(total_votes)
+ 
+# run loop through (array/index?) for each candidate get count.
 # count each candidate's votes
 # Percentage for each candidate is candidate / votes
 # Print Results
