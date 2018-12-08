@@ -43,6 +43,7 @@ with open(csv_poll, newline='') as csvfile:
         else:
             index = Candidates.index(row[2])
             candidate_votes[index] +=1
+            # candidate_votes = '{:,}'.format(candidate_votes)
     
     # Percentage for each candidate is candidate / votes
     for votes in candidate_votes:
@@ -59,6 +60,7 @@ with open(csv_poll, newline='') as csvfile:
     winner = max(candidate_votes)
     can_index = candidate_votes.index(winner)
     winning_candidate = Candidates[can_index]
+    
 
 # Displaying results
 # Print Results
@@ -69,10 +71,13 @@ with open(csv_poll, newline='') as csvfile:
 #print(f"Results: {candidate_votes}")
 print("Election Results")
 print("--------------------------")
-print(f"Total Votes: {str(total_votes)}")
+print("Total Votes: " + "{:,}".format(total_votes))
 print("--------------------------")
 for i in range(len(Candidates)):
-    print(f"{Candidates[i]}: {str(percent_votes[i])} ({str(candidate_votes[i])})")
+    temp_string = '{:,}'.format(candidate_votes[i])
+    # print(temp_string)
+    print(f"{Candidates[i]}: {str(percent_votes[i])} (" + temp_string + ")")
+    #scandidate_votes = '{:,}'.format(candidate_votes)
 print("--------------------------")
 print(f"Winner: {winning_candidate}")
 print("--------------------------")
