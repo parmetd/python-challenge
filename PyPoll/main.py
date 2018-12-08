@@ -8,7 +8,6 @@ import csv
 csv_poll = os.path.join('Resources', 'election_data.csv')
 
 Candidates = []
-candidate_options = []
 candidate_votes = []
 total_votes = 0
 # create a list of a candidate
@@ -29,23 +28,26 @@ with open(csv_poll, newline='') as csvfile:
 # Read each row of data after the header
     for row in csvreader:
         #print(row)
-        total_votes = total_votes + 1
-        total_candidates = row["Candidate"]
+        #reader = csv.DictReader(election_data)
+        total_votes += 1
 
-        if row["Candidate"] not in candidate_options:
+        if row[2] not in Candidates:
 
-            candidate_options.append(row["Candidate"])
-
-            candidate_votes[row["Candidate"]] = 1
+            Candidates.append(row[2])
+            index = Candidates.index(row[2])
+            candidate_votes.append(1)
 
         else:
-            candidate_votes[row["Candidate"]] = candidate_votes[row["Candidate"]] + 1
+            index = Candidates.index(row[2])
+            candidate_votes[index] +=1
 
-print(candidate_options)
-print(total_votes)
+#print(Candidates)
+#print(total_votes)
  
 # run loop through (array/index?) for each candidate get count.
 # count each candidate's votes
 # Percentage for each candidate is candidate / votes
 # Print Results
 # Export Results
+
+# if using Pandas then datagroupby
