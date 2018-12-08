@@ -48,29 +48,44 @@ with open(csv_bank, newline='') as csvfile:
 
         #Total net amount of "Profit/Losses over entire period"
         total_pl = total_pl + int(row[1])
-        #total = print("Total: $ {:,.2f}.format(total_pl))"
+        #total_pl = '${:,.2f}'.format(total_pl)
+        #total_pl = addCommas(total_pl)
+#format... ("${:,}".format)
+#pandas work because _df=pd. etc
+#file_df["avg_cost"] = file_df["avg_cost"].map("${:.2f}".format)
+#file_df["population"] = file_df["population"].map("{:,}".format)
+#file_df["other"] = file_df["other"].map("{:.2f}".format)
+
     #Greatest increase in profits
     greatest_increase = max(profits)
     greatest_index = profits.index(greatest_increase)
     greatest_date = dates[greatest_index]
+    greatest_increase = '${:,.2f}'.format(greatest_increase)
 
     #Greatest decrease (lowest increase) in profits 
     greatest_decrease = min(profits)
     worst_index = profits.index(greatest_decrease)
     worst_date = dates[worst_index]
+    greatest_decrease = '${:,.2f}'.format(greatest_decrease)
 
     #Average change in "Profit/Losses between months over entire period"
     avg_change = sum(profits)/len(profits)
-    
+    avg_change = round(avg_change,2)
+    avg_change = '${:,.2f}'.format(avg_change)
+
+    total_pl = '${:,.2f}'.format(total_pl)
 
 #Displaying information
 print("Financial Analysis")
 print("---------------------")
 print(f"Total Months: {str(total_months)}")
-print(f"Total: ${str(total_pl)}")
-print(f"Average Change: ${str(round(avg_change,2))}")
-print(f"Greatest Increase in Profits: {greatest_date} (${str(greatest_increase)})")
-print(f"Greatest Decrease in Profits: {worst_date} (${str(greatest_decrease)})")
+print(f"Total: {str(total_pl)}")
+print(f"Average Change: {str(avg_change)}")
+print(f"Greatest Increase in Profits: {greatest_date} ({str(greatest_increase)})")
+print(f"Greatest Decrease in Profits: {worst_date} ({str(greatest_decrease)})")
+print("--------------------------")
+print("Output.txt created")
+print("--------------------------")
 
 #Exporting to .txt file
 output = open("output.txt", "w")
@@ -80,7 +95,9 @@ line2 = "---------------------"
 line3 = str(f"Total Months: {str(total_months)}")
 line4 = str(f"Total: ${str(total_pl)}")
 line5 = "---------------------"
-line6 = str(f"Average Change: ${str(round(avg_change,2))}")
+line6 = str(f"Average Change: ${str(avg_change)}")
 line7 = str(f"Greatest Increase in Profits: {greatest_date} (${str(greatest_increase)})")
 line8 = str(f"Greatest Decrease in Profits: {worst_date} (${str(greatest_decrease)})")
 output.write('{}\n{}\n{}\n{}\n{}\n{}\n{}\n{}\n'.format(line1,line2,line3,line4,line5,line6,line7,line8))
+
+#total_pl = '${:,.2f}'.format(total_pl)
