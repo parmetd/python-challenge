@@ -10,6 +10,7 @@ csv_poll = os.path.join('Resources', 'election_data.csv')
 Candidates = []
 candidate_votes = []
 total_votes = 0
+percent_votes = []
 # create a list of a candidate
 
 with open(csv_poll, newline='') as csvfile:
@@ -40,14 +41,31 @@ with open(csv_poll, newline='') as csvfile:
         else:
             index = Candidates.index(row[2])
             candidate_votes[index] +=1
+    
+    # Percentage for each candidate is candidate / votes
+    for votes in candidate_votes:
+        percentage = (votes / total_votes) * 100
+        percentage = round(percentage)
+        percentage = "{:.1%}".format(percentage)
+        percent_votes.append(percentage)
+        #error of some kind. Returning 300%. Not by Candidate.
 
-#print(Candidates)
-#print(total_votes)
- 
-# run loop through (array/index?) for each candidate get count.
-# count each candidate's votes
-# Percentage for each candidate is candidate / votes
+    # count each candidate's votes
+    # Find the winning candidate
+    winner = max(candidate_votes)
+    can_index = candidate_votes.index(winner)
+    winning_candidate = Candidates[can_index]
+
+
+
 # Print Results
+print(Candidates)
+print(total_votes)
+print(percentage)
+print(f"Winner: {winning_candidate}")
+print(f"Results: {candidate_votes}")
 # Export Results
 
+
+# run loop through (array/index?) for each candidate get count.
 # if using Pandas then datagroupby
