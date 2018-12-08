@@ -1,4 +1,6 @@
 #PyPoll
+# run loop through (array/index?) for each candidate get count.
+# if using Pandas then datagroupby
 
 import os
 import pandas as pd 
@@ -44,11 +46,13 @@ with open(csv_poll, newline='') as csvfile:
     
     # Percentage for each candidate is candidate / votes
     for votes in candidate_votes:
-        percentage = (votes / total_votes) * 100
-        percentage = round(percentage)
+        percentage = (votes / total_votes)
+        # percentage = round(percentage, 1)
+        #percentage = percentage / 100
         percentage = "{:.1%}".format(percentage)
         percent_votes.append(percentage)
-        #error of some kind. Returning 300%. Not by Candidate.
+        
+        
 
     # count each candidate's votes
     # Find the winning candidate
@@ -56,16 +60,37 @@ with open(csv_poll, newline='') as csvfile:
     can_index = candidate_votes.index(winner)
     winning_candidate = Candidates[can_index]
 
-
-
+# Displaying results
 # Print Results
-print(Candidates)
-print(total_votes)
-print(percentage)
+#print(Candidates)
+#print(total_votes)
+#print(percentage)
+#print(f"Winner: {winning_candidate}")
+#print(f"Results: {candidate_votes}")
+print("Election Results")
+print("--------------------------")
+print(f"Total Votes: {str(total_votes)}")
+print("--------------------------")
+for i in range(len(Candidates)):
+    print(f"{Candidates[i]}: {str(percent_votes[i])} ({str(candidate_votes[i])})")
+print("--------------------------")
 print(f"Winner: {winning_candidate}")
-print(f"Results: {candidate_votes}")
-# Export Results
+print("--------------------------")
+print("Output.txt created")
+print("--------------------------")
 
-
-# run loop through (array/index?) for each candidate get count.
-# if using Pandas then datagroupby
+# Exporting Results
+# Exporting to .txt file
+output = open("output.txt", "w")
+line1 = "Election Results"
+line2 = "--------------------------"
+line3 = str(f"Total Votes: {str(total_votes)}")
+line4 = str("--------------------------")
+output.write('{}\n{}\n{}\n{}\n'.format(line1, line2, line3, line4))
+for i in range(len(Candidates)):
+    line = str(f"{Candidates[i]}: {str(percent_votes[i])} ({str(candidate_votes[i])})")
+    output.write('{}\n'.format(line))
+line5 = "--------------------------"
+line6 = str(f"Winner: {winning_candidate}")
+line7 = "--------------------------"
+output.write('{}\n{}\n{}\n'.format(line5, line6, line7))
